@@ -8,11 +8,13 @@ import { init } from '@sentry/browser';
 const dsn = 'https://753f8ee311114ea88a97cdf61cb57774@sentry.styx.im/2';
 const release = '0.0.1';
 const environment = process.env.NODE_ENV;
+const exclude_paths = [ 'sockjs-node' ];
+const options = { dsn, environment, exclude_paths };
 
 if (process.env.NODE_ENV === 'production') {
-  init({ dsn, environment, release });
+  init({ ...options, release });
 } else {
-  init({ dsn, environment, debug: true });
+  init({ ...options, debug: true });
 }
 
 ReactDOM.render(
